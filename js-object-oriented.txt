@@ -1,0 +1,42 @@
+//第一种写法
+var o = new Object();
+o.age = 20;
+o.name = "lisa";
+o.showName = function() {
+	console.log(this.name);
+}
+
+//工厂方法 缺点：每个对象都有一个showName method
+function createPerson(age, name) {
+	var o = new Object();
+	o.age = age;
+	o.name = name;
+	o.showName = function() {
+		console.log(this.name);
+	}
+	return o;
+}
+
+
+
+//改进工厂方法 基本没有缺点
+function Perosn(age, name) {
+	this.age = age;
+	this.name = name;
+	this.array = new Array();
+}
+Person.prototype.showName = function() {
+	console.log(this.name);
+}
+
+//混合工厂方法和protetype
+function Person(age, name) {
+	this.age = age;
+	this.name = name;
+	if (typeof Person._initialized == 'undefined') {
+		Person.prototype.showName = function() {
+			console.log(this.name);
+		}
+		Person._initialized = true;
+	}
+}
